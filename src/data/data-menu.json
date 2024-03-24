@@ -1,0 +1,48 @@
+[
+    {
+        "name": "Demos",
+        "link": "/demos"
+    },
+    {
+        "name": "Post",
+        "link": "/post",
+        "submenu": [
+            {
+                "name": "Post Header",
+                "link": "/post_header"
+            },
+            {
+                "name": "Post Layout",
+                "link": "/post_layout"
+            },
+            {
+                "name": "Share Buttons",
+                "link": "/share_buttons"
+            },
+            {
+                "name": "Gallery Post",
+                "link": "/gallery_post"
+            },
+            {
+                "name": "Video Post",
+                "link": "/video_post"
+            }
+        ]
+    },
+    {
+        "name": "Features",
+        "link": "/features"
+    },
+    {
+        "name": "Categories",
+        "link": "/categories"
+    },
+    {
+        "name": "Shop",
+        "link": "/shop"
+    },
+    {
+        "name": "Buy Now",
+        "link": "/buy_now"
+    }
+]

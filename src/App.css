@@ -1,0 +1,579 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+  /* colors */
+  --grey: #E9E9E9;
+  --grey1: #929292;
+  --grey2: #969696;
+  --grey3: #9B9B9B;
+  --accent: #EB0028;
+  --transparent: rgba(255, 255, 255, 0);
+  /* animations */
+  --anim: all 0.3s ease-in;
+  /* bgs */
+  --arrowDown: url("/src/assets/images/icons/arrow.svg") no-repeat center 60%/contain;
+  --standardBg: no-repeat center center/contain;
+  --vSpace: 48px;
+  --hSpace: 40px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  color: black;
+  font-family: "Roboto";
+  display: block;
+  background: white;
+  width: 100%;
+}
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+  align-self: flex-start;
+  width: 100%;
+  padding-bottom: 10.3rem;
+}
+
+.container {
+  width: min(1160px, calc(100% - 6rem));
+  margin: 0 auto;
+}
+
+.heading {
+  position: relative;
+  padding: 1.8rem 0 1.6rem;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto;
+  background: url("/src/assets/images/logo.svg") var(--standardBg);
+  height: 0;
+  width: 180px;
+  height: 27px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0 2rem;
+  list-style: none;
+  color: black;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: var(--grey);
+  font-size: 1rem;
+  height: 57px;
+  width: 100%;
+  background: white;
+  position: sticky;
+  top: 0;
+  margin-bottom: 3rem;
+  z-index: 1;
+  transform: translateY(0);
+  transition: transform 1s ease-in-out;
+}
+
+.menu.fly {
+  transform: translateY(-100%);
+}
+
+.menu a {
+  color: black;
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.menu > li > a {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 0 0.25rem;
+  position: relative;
+}
+
+.menu > li > a.has_sub::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: var(--arrowDown);
+  transform: rotate(0deg);
+  transition: var(--anim);
+}
+
+.menu > li > a:hover {
+  color: black;
+}
+
+/* not mentioned in design, just for try */
+
+.menu > li > a.active {
+  font-weight: 600;
+}
+
+.menu > li:hover > a.has_sub::after {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  position: absolute;
+  top: 100%;
+  border: 0 solid var(--grey);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1;
+  padding: 0 1.25rem;
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 176px;
+  background: white;
+  transform: translateX(-4px);
+  box-sizing: border-box;
+  /* properties for animation (expanding down) */
+  height: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.menu > li:hover > .submenu {
+  height: 174px;
+  padding: 1.25rem;
+  border-width: 1px;
+}
+
+.submenu > li:not(:last-child) {
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--grey);
+}
+
+.submenu > li > a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-indent: 0;
+  font-weight: 400;
+  transition: var(--anim);
+}
+
+.submenu > li > a::after {
+  content: "";
+  background: var(--arrowDown);
+  width: 8px;
+  height: 5px;
+  transform: rotate(-90deg);
+}
+
+.submenu > li:hover > a {
+  color: var(--grey2);
+  text-indent: 0.5rem;
+}
+
+.search_icon {
+  display: inline-block;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  background: url("/src/assets/images/icons/search.svg") var(--standardBg);
+  top: 50%;
+  cursor: pointer;
+}
+
+.search_block {
+  padding: 0.8rem;
+  background: white;
+  border: 1px solid var(--grey);
+  box-shadow: 2px 5px 5px var(--grey);
+  margin: 3px;
+  z-index: 2;
+  /* properties for animation (slide horizontally) */
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.search_wrapper:hover .search_block {
+  width: 100%;
+  opacity: 1;
+}
+
+.search_wrapper {
+  position: absolute;
+  gap: 0.5rem;
+  right: 0;
+  top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#search {
+  background: var(--transparent);
+  border: thin solid var(--grey2);
+  color: black;
+  padding: 0.25rem 0.5rem;
+}
+
+#loader {
+  width: 25vw;
+  height: 25vw;
+  background: url("/src/assets/images/loader.svg") var(--standardBg);
+}
+
+#posts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vSpace) var(--hSpace);
+  align-items: flex-start;
+}
+
+.card {
+  width: calc((100% - 2 * var(--hSpace)) / 3);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.card > img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.card * {
+  text-align: left;
+}
+
+.tags {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.8125rem;
+}
+
+.card_title {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.card_info {
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+  font-size: 0.75rem;
+  color: var(--grey3);
+}
+
+.autor {
+  color: black;
+  font-weight: 500;
+}
+
+.card_date {
+  position: relative;
+  gap: 0.3125rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card_date::before,
+.card_date::after {
+  content: "";
+  width: 0.1875rem;
+  height: 0.1875rem;
+  border-radius: 50%;
+  background: #D7D7D7;
+}
+
+.card_text {
+  color: var(--grey1);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* popups */
+.overlay {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  z-index: 3;
+}
+
+.popup_overlay {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.popup {
+  z-index: 4;
+  width: min(calc(100% - 2rem), 20rem);
+  background: white;
+  padding: 0.5rem 0 1rem;
+  box-shadow: 0 0 1rem var(--grey1);
+  position: relative;
+  border-radius: 15px;
+}
+
+.close_popup {
+  width: 0.75rem;
+  height: 0.75rem;
+  background: url("./assets/images/icons/close.svg") var(--standardBg);
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+.popup_title {
+  border-bottom: 1px solid var(--grey);
+  font-size: 1.2rem;
+  color: var(--accent);
+  font-weight: 700;
+  text-align: left;
+  padding: 0 2.5rem 0.5rem 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.popup_text {
+  text-align: left;
+  padding: 0 1.5rem;
+  line-height: 1.4;
+  color: var(--grey3);
+}
+
+.hamburger,
+.menu li.menu_mob_header {
+  display: none;
+}
+
+.post_nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem auto;
+    color: white;
+}
+
+.post_nav a {
+  display: block;
+  color: white;
+  font-weight: normal;
+  background: black;
+  padding: 0.25rem;
+  border: thin solid black;
+  transition: var(--anim);
+}
+
+.post_nav a:hover, 
+.post_nav a.active {
+  color: black;
+  background: white;
+}
+
+@media screen and (max-width: 1100px) {
+  #root {
+    padding-bottom: 7rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .card {
+    width: calc((100% - var(--hSpace)) / 2);
+  }
+}
+
+/* mobile starts */
+@media screen and (max-width: 767px) {
+  .hamburger {
+    display: block;
+    width: 1.5625rem;
+    height: 1rem;
+    background: url("./assets/images/icons/hamburger.svg") var(--standardBg);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .heading {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+  }
+
+  .logo {
+    width: 163px;
+    height: 24px;
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    z-index: 2;
+    width: 83vw;
+    height: 100vh;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%); 
+    transition: all 0.7s ease-in-out;
+  }
+
+  .menu.open {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .menu li.menu_mob_header {
+    display: flex;
+    padding: 2rem 2.25rem 1.5625rem 1.25rem;
+    justify-content: space-between;
+    margin-bottom: 1.875rem;
+    width: 100%;
+  }
+
+  .menu_logo {
+    display: block;
+    width: 162px;
+    height: 24px;
+    background: url("./assets/images/logo.svg") var(--standardBg);
+  }
+
+  .menu_close {
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    background: url("./assets/images/icons/close.svg") var(--standardBg);
+  }
+
+  .menu li {
+    box-sizing: border-box;
+    width: calc(100% - 2.5rem);
+    border-bottom: 1px solid var(--grey);
+    margin: 0 auto;
+    /* making a wider touch area */
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+  }
+
+  .mob_menu_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .submenu li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  /* used to toggle submenu on mobile touch devices by CSS only */
+  /* covers the li item */
+  #touch_submenu {
+    position: absolute;
+    align-self: flex-start;
+    width: 100%;
+    height: calc(3rem - 2px);
+    top: 1px;
+    z-index: 3;
+    opacity: 0;
+  }
+
+  .menu > li > #touch_submenu:checked + a.has_sub::after {
+    transform: rotate(180deg);
+  }
+
+  .menu > li > #touch_submenu:not(:checked) + a.has_sub::after {
+    transform: rotate(0deg);
+  }
+
+  .submenu {
+    position: static;
+    width: 100%;
+    border: none;
+  }
+
+  .menu > li > #touch_submenu:checked ~ .submenu {
+    padding: 1rem 0;
+    height: 155px;
+  }
+
+  .menu > li > #touch_submenu:not(:checked) ~ .submenu {
+    height: 0;
+    padding: 0;
+  }
+
+  .submenu > li:not(:last-child) {
+    padding-top: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    width: calc(100% - 2.5rem);
+  }
+
+  .post_nav {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .post_nav a {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  :root {
+    --vSpace: 32px;
+  }
+  
+  .card {
+    width: 100%;
+  }
+}
